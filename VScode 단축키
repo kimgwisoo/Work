@@ -20,3 +20,6 @@ ctrl + [ 라인 내어쓰기
 
 ctrl+/ 주석 토글
 shift+alt+a 커서위치에 주석 토글
+
+
+ctrl+shift+p  git log histroy view
