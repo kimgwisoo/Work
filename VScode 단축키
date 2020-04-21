@@ -1,0 +1,22 @@
+
+ctrl+shift+k 행 삭제
+ctrl+X 행 잘라내기
+ctrl+C 행 복사 (빈 선택)
+
+alt+Down 행을 아랫줄로 이동
+alt+Up 행을 윗줄로 이동
+
+ctrl+Enter 아래에 행 삽입
+ctrl+shift+Enter 위에 행 삽입
+
+ctrl+alt+Down 커서를 아래에 추가
+ctrl+alt+Up 커서를 위에 추가
+
+ctrl+d 다음 선택 찾기
+ctrl+shift+l 현재 선택 항목을 모두 선택
+
+ctrl + ] 라인 들여쓰기
+ctrl + [ 라인 내어쓰기
+
+ctrl+/ 주석 토글
+shift+alt+a 커서위치에 주석 토글
