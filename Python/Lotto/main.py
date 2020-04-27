@@ -77,7 +77,7 @@ while len(my_lotto_numbers) < 10:
 
 
 # bestnumbers1.txt 파일에 쓰기로 합니다. // 참고로  w : 쓰기모드 , r : 읽기 모드, A : 추가모드
-f = open("C:/Users/KGSS2KMS/Documents/Work/Python/Lotto/OutPut/bestnumbers1.txt",
+f = open("C:/Users/KGSS2KMS/Documents/Work/Python/Lotto/OutPut/bestnumbers2.txt",
          'w', encoding='UTF-8')
 for nums in my_lotto_numbers:  # my_lotto_numbers에 내용이 바닥날때까지 반복을 하겠다
     # nums는 숫자 list임으로 sorted로 정렬를 하고 str으로 변환하여 끝 지점에 \n를 하게 됩니다.
