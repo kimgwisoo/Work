@@ -1,0 +1,236 @@
+<Docker>
+1. Docker images -> Dockehub pull 한다
+1-1. images list : tomcat, mongodb 등등
+1-2. images pull 작성 예
+->	docker pull <images name:version>
+->	docker pull mongo:latest
+
+2. docker Bridge Network 생성
+->	docker network create --driver bridge <bridge name>
+
+3. images pull 한 후 docker container run 시킨다
+->	docker run -itd --name <container name> -p <외부접속port>:<내부접속port> --network <network name> --ip xxx.xxx.xxx.xxx <images name>
+->	docker ps로 확인을 한다.
+
+// 4. docker compose 작성하여 2개 container를 한꺼번에 생성
+// -> 작성 예시 확인할것
+
+5. Chrome url:localhost:8182/<webapplication directory name>/<요청경로>
+
+6. 
+
+https://docs.docker.com/get-started/overview/
+https://www.44bits.io/ko/post/easy-deploy-with-docker
+https://docs.docker.com/engine/reference/commandline/container_attach/ (도커 명령어)
+
+▶ 도커 아키텍쳐
+Docker는 클라이언트-서버 아키텍처
+Docker 클라이언트는 Docker 데몬과 통신
+Docker 데몬 은 Docker 컨테이너를 빌드, 실행 및 배포하는 작업을 많이 수행
+
+▶ Docker 데몬
+Docker 데몬 (dockerd)은 Docker API 요청을 수신하고 이미지, 컨테이너, 네트워크 및 볼륨과 같은 Docker 객체를 관리합니다. 
+데몬은 다른 데몬과 통신하여 Docker 서비스를 관리 할 수도 있습니다.
+
+▶ Docker 클라이언트
+Docker 클라이언트 (docker)는 많은 Docker 사용자가 Docker와 상호 작용하는 기본 방법입니다.
+사용자가 docker run과 같은 명령을 하면 클라이언트는 이 명령들을 Docker 데몬에게 보낸다.
+Docker 클라이언트는 둘 이상의 데몬과 통신 할 수 있다.
+
+▶ Docker 레지스트리
+Docker 레지스트리 는 Docker 이미지를 저장합니다. 
+Docker Hub는 누구나 사용할 수있는 공개 레지스트리이며 Docker는 기본적으로 Docker Hub에서 이미지를 찾도록 구성되어 있습니다. 
+자신의 개인 레지스트리를 실행할 수도 있다.
+Docker Datacenter (DDC)를 사용하는 경우 Docker Trusted Registry (DTR)가 포함됩니다.
+docker pull또는 docker run명령 을 사용하면 필요한 이미지가 구성된 레지스트리에서 가져옵니다. 
+docker push명령 을 사용하면 이미지가 구성된 레지스트리로 푸시됩니다.
+
+▶ Docker 객체
+Docker를 사용하면 이미지, 컨테이너, 네트워크, 볼륨, 플러그인 및 기타 객체를 생성 및 사용하게됩니다. 
+이 섹션은 이러한 개체 중 일부에 대한 간략한 개요입니다.
+
+1) 이미지
+도커 컨테이너를 만들기 위한 읽기 전용 템플릿
+자신의 이미지를 만들거나 다른 사람이 만들고 레지스트리에 게시 한 이미지 만 사용할 수 있습니다. 
+자신의 이미지 를 작성하려면 이미지를 작성하고 실행하는 데 필요한 단계를 정의하기위한 간단한 구문 으로 Dockerfile 을 작성하십시오.
+
+2) 컨테이너
+컨테이너는 실행 가능한 이미지 인스턴스입니다.
+Docker API 또는 CLI를 사용하여 컨테이너를 작성, 시작, 중지, 이동 또는 삭제할 수 있습니다.
+컨테이너를 하나 이상의 네트워크에 연결하거나 스토리지를 연결하거나 현재 상태에 따라 새 이미지를 만들 수도 있습니다.
+
+컨테이너는 이미지를 만들거나 시작할 때 제공하는 구성 옵션뿐만 아니라 이미지로 정의됩니다. 
+컨테이너를 제거하면 영구 저장소에 저장되지 않은 상태 변경이 사라집니다.
+
+Container identification (컨테이너 식별)
+UUID long identifier -> ex) "f78375b1c487e03c9438c729345e54db9d20cfa2ac1fc3494b6eb60872e74778"
+UUID short identifier -> ex) "f78375b1c48"
+Name -> ex) "evil_ptolemy"
+
+
+▶▶▶ Docker 설치
+도커는 다양한 환경에서 사용할 수 있습니다. 
+개발 환경에서는 주로 도커와 관련 도구들로 구성된 패키지인 도커 포 맥Docker for Mac과 도커 포 윈도우Docker for Windows*를 사용합니다. 
+단, 도커는 리눅스 컨테이너를 직접 지원하지 않는 맥OSmacOS나 윈도우즈에서는 경량 가상머신이 중간에서 사용됩니다.
+
+리눅스 환경에서는 각 배포판에서 제공하는 패키지 관리자를 사용해서 도커를 설치할 수 있습니다. 
+단, 일반적으로 패키지 관리자는 보수적으로 관리되기 때문에 최신 버전을 설치하고자 한다면 도커에서 제공하는 스크립트를 사용해서 설치하는 것이 좋습니다. 
+여기서는 이 스크립트를 사용해 정식 릴리즈된 도커 최신 버전을 설치해보겠습니다.
+
+$ curl -s https://get.docker.com | sudo sh
+( curl이 없다면 sudo apt-get curl로 설치합니다.)
+
+$ docker -v
+$ docker --version
+(도커 버전 확인)
+
+exit, Ctrl+D
+(도커 컨테이너 내부 쉘에서 나가는 방법)
+
+Ctrl+P, Q
+(컨테이너를 종료시키지 않고 나오기)
+
+▶▶▶ docker pull 명령으로 Docker Hub registry로 부터 이미지 다운로드
+$ docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+$ docker pull [이미지 이름]:[태그]
+(아래 명령어를 사용하면 도커 공식 이미지 저장소에서 이미지를 내려받습니다.)
+ex) docker pull centos:7
+ex) docker pull ubuntu
+
+$ docker images
+(이미지 확인)
+
+$ docker create [옵션] [이미지 이름]:[태그]
+ex) docker create -i -t centos:7
+
+
+
+▶▶▶ 도커 이미지를 pull로 받아오고 commit 으로 파생된 이미지를 만들고 rmi 명령어로 삭제까지
+
+$ docker start centos:7
+(도커 컨테이너 실행)
+
+$ docker attach [컨테이너 명]
+$ docker attach centos:7
+(컨테이너에 들어가기)
+
+▶▶▶ run으로 컨테이너 실행
+$ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+$ docker run [옵션] [이미지 이름]:[태그] 
+(생성 -> 실행 -> 들어가기 까지 한번에 해주는 명령)
+-i : 상호 입출력
+-t : tty를 활성화하여 bash 쉘을 사용
+
+$ docker run ubuntu:14.04
+$ docker run alpine@sha256:9cacb71397b640eca97488cf08582ae4e4068513101088e9f96c9814bfda95e0 date
+$ docker run -it --rm --pid=host myhtop
+$ docker run --name my-redis -d redis
+$ docker run -it --pid=container:my-redis my_strace_docker_image bash
+
+
+
+
+
+
+$ docker ps
+(지금 실행중인 컨테이너 목록)
+$ docker ps -a
+(모든 컨테이너 목록)
+===============================================================
+CONTAINER ID : 컨테이너에게 자동으로 할당되는 고유한 ID
+IMAGE : 컨테이너를 생성할 때 사용된 이미지 이름
+COMMAND : 컨맨드는 컨테이너가 시작될 때 실행될 명렁어, 기본은 /bin/bash 명령어라 명령을 쓸 수 있습니다.
+CREATED : 컨테이너가 생성되고 난 뒤 흐른 시간
+STATUS : 컨테이너의 상태 ex) Up(실행 중), Exited(종료), Pause(일시 중지)
+PORTS : 컨테이너가 개방한 포트와 호스트에 연결한 포트
+NAMES : 컨테이너의 고유한 이름, --name 옵션으로 이름을 설정하지 않으면 도커 엔진이 임의의로 설정
+===============================================================
+
+
+$ docker rm [컨테이너 이름]
+
+$ docker stop mycentos
+$ docker rm mycentos
+
+$ docker rm -f centos
+
+(컨테이너 삭제 -> 만약 container가 실행 중이면 종료하고 삭제를 하거나 -f 옵션을 이용해서 강제로 삭제를 해야합니다.)
+
+▶▶▶ 컨테이너는 가상 머신과 마찬가지로 가상 IP를 할당 받습니다.
+아무 설정을 하지 않으면 기본적으로 컨테이너는 외부에서 접근할 수 없으며 도커가 설치된 호스트에서만 접근 가능합니다.
+
+▶▶▶ 외부에 컨테이너의 어플리케이션을 노출하기 위해서는 eth0의 IP와 포트를 호스트의 IP와 포트에 바인딩해야 합니다.
+-p 옵션을 이용해 컨테이너의 포트를 호스트의 포트와 바인딩해 연결할 수 있게 설정합니다.
+
+-p [호스트의 포트]:[컨테이너의 포트]
+$ docker run -i -t --name mywebserver -p 80:80 ubuntu:14.04
+
+$ docker run -a stdin -a stdout -i -t ubuntu /bin/bash
+-a 지정하지 않으면 Docker는 stdout과 stderr에 모두 연결됩니다. 세 가지 표준 스트림(STDIN, STDOUT, STDERR)을 지정할 수 있다
+
+
+--link 
+A컨테이너에서 B컨테이너로 접근하는 방법 중 하나입니다. ip가 아닌 alias로 접근할 수 있습니다.
+
+
+
+▶▶▶ 도커 네트워크 생성
+▶ 새로운 네트워크를 만듭니다. DRIVER는 내장 네트워크 드라이버 인 bridge 또는 overlay를 허용한다.
+Docker Engine을 설치하면 bridge네트워크가 자동으로 생성 된다. 이 네트워크는  docker0 bridge와 통신한다. 
+docker run으로 컨테이너를 실행하면 자동적으로 docker0 bridge 네트워크에 연결된다. 사용자는 이 기본 docker0 bridge 네트워크를 삭제할 수는 없지만
+network create 명령을 사용하여 새로운 네트워크를 만들 수는 있다.
+▶ 네트워크의 이름은 유일해야 하고, 이름 충돌을 피하는 것은 사용자의 책임이다.
+$ docker network create [OPTIONS] NETWORK
+$ docker network create -d bridge my-bridge-network
+
+
+
+
+
+▶▶▶ 컨테이너를 네트워크에 연결
+▶ 컨테이너를 네트워크에 연결합니다. 이름이나 ID로 컨테이너를 연결할 수 있습니다. 연결되면 컨테이너는 동일한 네트워크의 다른 컨테이너와 통신 할 수 있습니다.
+▶ 연결되면 컨테이너는 다른 컨테이너의 IP 주소 또는 이름 만 사용하여 통신 할 수 있습니다.
+$ docker network connect [OPTIONS] NETWORK CONTAINER
+=========================== OPTIONS ===========================
+--alias		Add network-scoped alias for the container
+--driver-opt	driver options for the network
+--ip		IPv4 address (e.g., 172.30.100.104)
+--ip6		IPv6 address (e.g., 2001:db8::33)
+--link		Add link to another container
+--link-local-ip	Add a link-local address for the container
+================================= ===========================
+$ docker network connect multi-host-network container1
+(실행중인 컨테이너를 네트워크에 연결)
+
+$ docker run -itd --network=mynet busybox => busybox 컨테이너를 실행시키고 mynet 네트워크에 연결
+$ docker run -itd --network=multi-host-network busybox
+(컨테이너를 시작할 때 네트워크에 컨테이너를 연결)
+(docker run --network=<network-name>옵션을 사용하여 컨테이너를 시작하고 즉시 네트워크에 연결할 수 있습니다.)
+
+$ docker network connect --ip 10.10.36.122 multi-host-network container2
+(컨테이너가 지정된 네트워크에서 사용할 IP 주소를 지정)
+
+$ docker network connect --link container1:c1 multi-host-network container2
+(--link 옵션을 사용하여 다른 컨테이너를 선호하는 별명으로 연결할 수 있다)
+
+
+
+▶▶▶▶▶ 컨테이너 중지, 일시 중지 또는 다시 시작의 네트워크 영향
+네트워크에 연결된 컨테이너를 일시 중지, 다시 시작 및 중지 할 수 있습니다. 컨테이너는 실행될 때 구성된 네트워크에 연결됩니다.
+IP가 지정된 경우 중지 된 컨테이너가 다시 시작될 때 컨테이너의 IP 주소가 다시 적용됩니다.
+IP 주소를 더 이상 사용할 수 없으면 컨테이너가 시작되지 않습니다.
+IP 주소를 사용할 수 있게 하는 한 가지 방법은 --ip-range은 네트워크를 만들 때 를 지정하고 해당 범위 밖의 고정 IP 주소를 선택하는 것입니다. 
+이렇게하면이 컨테이너가 네트워크에없는 동안 다른 컨테이너에 해당 IP 주소가 제공되지 않습니다.
+
+
+▶ 컨테이너가 연결되어 있는지 확인하려면 docker network inspect 명령을 사용
+▶ 네트워크에서 컨테이너를 제거하려면 docker network disconnect 명령을 사용
+
+$ docker network ls [OPTIONS]
+(모든 네트워크 리스트)
+
+$ docker network ls --no-trunc
+(--no-trunc 옵션은 full network id를 보여준다)
+
+
+▶▶▶ docker pull 명령으로 Docker Hub registry로 부터 이미지 다운로드
