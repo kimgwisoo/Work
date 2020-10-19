@@ -2,6 +2,7 @@ import os
 import email
 import imaplib
 import configparser
+import re
 
 
 # 문자열의 인코딩 정보 추출 후, 문자열, 인코딩 얻기
@@ -69,6 +70,7 @@ for mail in all_email:
         if part.get('Content-Disposition') is None:
             continue
         file_name = part.get_filename()
+        file_name = "".join(i for i in file_name if i not in "\/:*?<>|")
 
         if bool(file_name):
             file_path = os.path.join(
