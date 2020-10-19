@@ -2,8 +2,11 @@ import email
 import imaplib
 import os
 
+from email import encoders
+
 
 class FetchEmail():
+    ENCODING = 'UTF-8'
 
     connection = None
     error = None
@@ -12,6 +15,7 @@ class FetchEmail():
         self.connection = imaplib.IMAP4_SSL('imap.gmail.com')
         self.connection.login('kimgs243@gmail.com', 'lizrrkqakqbjshkv')
         self.connection.select(readonly=False)  # 메일을 읽은 상태로 표시
+        self.save_attachment(self.connection)
 
     def close_connection(self):
         """ 
@@ -19,7 +23,7 @@ class FetchEmail():
         """
         self.connection.close()
 
-    def save_attachment(self, msg, download_folder="/tmp"):
+    def save_attachment(self, msg, download_folder="C:\\Users\\MCF\\Downloads"):
         """ 
         메시지가 주어지면 첨부파일을 지정된 폴더로 다운하게 됩니다. (default is /tmp)
         return : 첨부파일로 반환한다.
@@ -28,6 +32,7 @@ class FetchEmail():
 
         return: file path to attachment 
         """
+
         att_path = "No attachment found."
         for part in msg.walk():
             if part.get_content_maintype() == 'multipart':
@@ -77,3 +82,7 @@ class FetchEmail():
         return: tuple (name, address). Eg. ('John Doe', 'jdoe@example.com') 
         """
         return email.utils.parseaddr(email_address)
+
+
+email = FetchEmail
+email.save_attachment()
