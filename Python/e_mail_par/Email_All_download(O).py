@@ -28,13 +28,14 @@ session.select('Inbox')
 # 받은 편지함 내 모든 메일 검색
 result, data = session.search(None, 'ALL')
 
+
 # 여러 메일 읽기
 all_email = data[0].split()
 
 for mail in all_email:
     result, data = session.fetch(mail, '(RFC822)')
     raw_email = data[0][1]
-    raw_email_string = raw_email.decode('utf-8')
+    raw_email_string = raw_email.decode('UTF-8')
     email_message = email.message_from_string(raw_email_string)
 
     # 메일 정보
@@ -43,7 +44,8 @@ for mail in all_email:
     print('To: ', email_message['To'])
     print('Date: ', email_message['Date'])
 
-    subject, encode = find_encoding_info(email_message['Subject'])
+    subject, encode = find_encoding_info(
+        email_message['Subject'])
     print('Subject', subject)
 
     message = ''
@@ -70,7 +72,12 @@ for mail in all_email:
         if part.get('Content-Disposition') is None:
             continue
         file_name = part.get_filename()
-        file_name = "".join(i for i in file_name if i not in "\/:*?<>|")
+        file_name = "".join(
+            i for i in file_name if i not in "\/:*?<>|")
+
+        # file_name = file_name.replace('UTF-8B', '')
+        # file_name = file_name.replace('utf-8B', '')
+        # print(file_name)
 
         if bool(file_name):
             file_path = os.path.join(
