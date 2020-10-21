@@ -2,7 +2,7 @@ import os
 import email
 import imaplib
 import configparser
-import re
+import base64
 
 
 # 문자열의 인코딩 정보 추출 후, 문자열, 인코딩 얻기
@@ -17,23 +17,23 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 
 # gmail imap 세션 생성
-session = imaplib.IMAP4_SSL('imap.gmail.com')
+imap_url = imaplib.IMAP4_SSL('imap.gmail.com')
 
 # 로그인
-session.login(config['Gmail']['id'], config['Gmail']['pw'])
+imap_url.login(config['Gmail']['id'], config['Gmail']['pw'])
 
 # 받은편지함
-session.select('Inbox')
+imap_url.select('INBOX')
 
 # 받은 편지함 내 모든 메일 검색
-result, data = session.search(None, 'ALL')
+result, data = imap_url.search(None, 'ALL')
 
 
 # 여러 메일 읽기
 all_email = data[0].split()
 
 for mail in all_email:
-    result, data = session.fetch(mail, '(RFC822)')
+    result, data = imap_url.fetch(mail, '(RFC822)')
     raw_email = data[0][1]
     raw_email_string = raw_email.decode('UTF-8')
     email_message = email.message_from_string(raw_email_string)
@@ -72,8 +72,9 @@ for mail in all_email:
         if part.get('Content-Disposition') is None:
             continue
         file_name = part.get_filename()
-        file_name = "".join(
-            i for i in file_name if i not in "\/:*?<>|")
+
+        # file_name = "".join(
+        #     i for i in file_name if i not in "\/:*?<>|")
 
         # file_name = file_name.replace('UTF-8B', '')
         # file_name = file_name.replace('utf-8B', '')
@@ -81,7 +82,7 @@ for mail in all_email:
 
         if bool(file_name):
             file_path = os.path.join(
-                'D:\download', file_name)
+                'D:/개인/Work/Download', file_name)
             if not os.path.isfile(file_path):
                 fp = open(file_path, 'wb')
                 fp.write(part.get_payload(decode=True))
@@ -89,5 +90,5 @@ for mail in all_email:
     else:
         continue
 
-session.close()
-session.logout()
+imap_url.close()
+imap_url.logout()
