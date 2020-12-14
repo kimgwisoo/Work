@@ -1,11 +1,11 @@
 import requests
+import urllib3
 import pymongo
 
 
-# JSON정보를 Dictionary형식으로 return하는 함수
 def get_request_by_episode(episode):
     params = {
-        'method': 'getLottoNumver',
+        'method': 'getLottoNumber',
         'drwNo': episode
     }
 
@@ -39,13 +39,13 @@ def return_last_episode_in_db():
     return last_episode
 
 
-def insert_episode_to_do():
+def insert_episode_to_db():
     # Mongodb connection 연결
     conn = pymongo.MongoClient('localhost')
     db = conn.lotto_db
     collection = db.lotto
 
-    # db에 저장된 마지막 회차보다 1큰 수 부터 받아온다.
+    # db에 저장된 마지막 회차보다 1큰 수 부터 받아온다
     count = return_last_episode_in_db() + 1
     while 1:
         # 회차별 get request
@@ -57,7 +57,7 @@ def insert_episode_to_do():
         # db에 추가할 회차가 이미 저장되어 있는지 확인
         count_result = collection.count_documents({'drwNo': count})
         if count_result < 1:
-            # db insert 부분
+            # db insert
             collection.insert_one(lotto_result)
             print(lotto_result)
         count = count + 1
@@ -70,4 +70,4 @@ if __name__ == '__main__':
     urllib3.disable_warnings()
 
     # db insert 절차 진행
-    insert_episode_to_do()
+    insert_episode_to_db()

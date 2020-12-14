@@ -87,26 +87,34 @@ def get_assigned_after_episodes(colllection, params):
 # episode1회차 ~ episode2회차 까지의 당첨 정보 받아오기
 def get_assigned_between_episodes(collection, params):
     assigned_episodes = collection.find(
-        {'drwNo': {'$gte': params['episode1'], '$lte': params['episode2']}})
+        {'drwNo': {'$gte': params['episode1'], '$lte': params['episode2']}})  # $gte
     df = sort_and_get_nums(assigned_episodes)
     return df
 
 
 if __name__ == '__main__':
-    lotto_data = connect_mongodb_data_to_frame(get_all_episodes, {})
+    # 전체 로또 당첨 정보
+    # lotto_data = connect_mongodb_data_to_frame(get_all_episodes, {})
 
-    lotto_data = connect_mongodb_data_to_frame(get_episode, {'episode': 15})
+    # 지정회차 로또 당첨 정보 ('episode' key값으로 해당 회차 정보를 가지고 옴)
+    # lotto_data = connect_mongodb_data_to_frame(get_episode, {'episode': 15})
 
-    lotto_data = connect_mongodb_data_to_frame(
-        get_recent_episodes, {'num': 15})
+    # 최근 num회 로또 당첨번호 정보
+    # lotto_data = connect_mongodb_data_to_frame(
+    #     get_recent_episodes, {'num': 15})
 
-    lotto_data = connect_mongodb_data_to_frame(get_assigned_before_episodes, {
-                                               'episode': 820, 'before_num': 15})
+    # 특정 회차 이전 n회 로또 당첨 정보
+    # episode와 before_num의 key값으로 해당 회차로부터 n회 이전 로또 당첨번호를 받아온다.
+    # lotto_data = connect_mongodb_data_to_frame(get_assigned_before_episodes, {
+    #    'episode': 820, 'before_num': 15})
 
-    lotto_data = connect_mongodb_data_to_frame(get_assigned_after_episodes, {
-                                               'episode': 810, 'after_num': 15})
+    # 특정 회차 이후 n회 로또 당첨 정보
+    # episode와 after_num의 key값으로 해당 회차로부터 n회 이후 로또 당첨번호를 받아온다.
+    # lotto_data = connect_mongodb_data_to_frame(get_assigned_after_episodes, {
+    #    'episode': 810, 'after_num': 15})
 
+    # episode1회차 ~ episode2회차 까지의 당첨 정보 받아오기
     lotto_data = connect_mongodb_data_to_frame(get_assigned_between_episodes, {
-                                               'episode1': 833, 'episode2': 839})
+        'episode1': 30, 'episode2': 50})
 
     print(lotto_data)
