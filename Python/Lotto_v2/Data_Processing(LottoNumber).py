@@ -87,7 +87,8 @@ def get_assigned_after_episodes(colllection, params):
 # episode1회차 ~ episode2회차 까지의 당첨 정보 받아오기
 def get_assigned_between_episodes(collection, params):
     assigned_episodes = collection.find(
-        {'drwNo': {'$gte': params['episode1'], '$lte': params['episode2']}})  # $gte
+        {'drwNo': {'$gte': params['episode1'], '$lte': params['episode2']}})
+    # mongodb 명령어 = $gte : 이상, $lte : 이하, $gt : 초과, $lt : 미만 *기간 조회를 할시 주로 사용함
     df = sort_and_get_nums(assigned_episodes)
     return df
 
