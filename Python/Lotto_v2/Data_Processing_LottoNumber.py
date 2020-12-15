@@ -98,7 +98,7 @@ if __name__ == '__main__':
     # lotto_data = connect_mongodb_data_to_frame(get_all_episodes, {})
 
     # 지정회차 로또 당첨 정보 ('episode' key값으로 해당 회차 정보를 가지고 옴)
-    # lotto_data = connect_mongodb_data_to_frame(get_episode, {'episode': 15})
+    # lotto_data = connect_mongodb_data_to_frame(get_episode, {'episode': 30})
 
     # 최근 num회 로또 당첨번호 정보
     # lotto_data = connect_mongodb_data_to_frame(
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     # 특정 회차 이전 n회 로또 당첨 정보
     # episode와 before_num의 key값으로 해당 회차로부터 n회 이전 로또 당첨번호를 받아온다.
     # lotto_data = connect_mongodb_data_to_frame(get_assigned_before_episodes, {
-    #    'episode': 820, 'before_num': 15})
+    #     'episode': 841, 'before_num': 30})
 
     # 특정 회차 이후 n회 로또 당첨 정보
     # episode와 after_num의 key값으로 해당 회차로부터 n회 이후 로또 당첨번호를 받아온다.
