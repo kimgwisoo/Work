@@ -4,6 +4,7 @@ from pandas import DataFrame
 from pandas import Series
 from matplotlib import pyplot as plt
 from matplotlib import font_manager as fm
+from Data_Processing_LottoNumber import connect_mongodb_data_to_frame
 import numpy as np
 
 
