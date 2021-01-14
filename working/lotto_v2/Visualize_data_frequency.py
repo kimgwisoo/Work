@@ -77,7 +77,7 @@ def analysis_by_frequency(df):
 if __name__ == '__main__':
 
     check_episode = 945
-    before_episode = 50
+    before_episode = 30
 
     # 예측하는 회차 번호
     lotto_data = connect_mongodb_data_to_frame(
