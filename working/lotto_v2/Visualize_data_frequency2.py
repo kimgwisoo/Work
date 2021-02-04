@@ -181,7 +181,7 @@ def analysis_check_numbers_with_before_episode(start_episode, end_episode):
           (count / (end_episode - start_episode) * 100.0) + '%')
 
 
-print(analysis_check_numbers_with_before_episode(915, 945))
+print(analysis_check_numbers_with_before_episode(915, 948))
 # if __name__ == '__main__':
 #     check_episode = 841
 #     before_episode = 30
