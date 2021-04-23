@@ -16,7 +16,6 @@ search_url = "https://dhlottery.co.kr/gameResult.do?method=byWin&drwNo={page}"
 def one_lotto_number(page):  # 로또 회차별 당첨 번호를 선별하는 함수
     response = urllib.request.urlopen(search_url.format(page=page))
     lotto_data = response.read()
-
     soup = bs4.BeautifulSoup(lotto_data)
     ret = []
     newret = []

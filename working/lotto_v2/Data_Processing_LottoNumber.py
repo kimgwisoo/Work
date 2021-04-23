@@ -93,11 +93,6 @@ def get_assigned_between_episodes(collection, params):
     return df
 
 
-def one_lotto_number(collection, params):
-
-    return df
-
-
 if __name__ == '__main__':
     # 전체 로또 당첨 정보
     # lotto_data = connect_mongodb_data_to_frame(get_all_episodes, {})
