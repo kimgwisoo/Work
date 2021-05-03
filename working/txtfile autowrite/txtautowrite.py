@@ -10,7 +10,7 @@ def text_sl():
 
     li = st.replace(' ', '').split('\n')
 
-    reg1 = re.compile(r'▶|http://|hxxp://|\d+\)')  # 특정 문자열 제거
+    reg1 = re.compile(r'▶|http://|hxxp://|https://|\d+\)')  # 특정 문자열 제거
     reg2 = re.compile('[가-힣]')  # 한글
     reg3 = re.compile('\(.*?\)')  # 괄호안 문자열
     reg4 = re.compile('[a-zA-Z]')  # 알파벳
