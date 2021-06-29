@@ -50,24 +50,45 @@ print("autotrade start")
 
 # 자동매매 시작
 while True:
+    stock_krw = ['KRW']
+    stock_list = [{'stock': 'BTT', 'count': 0.4},
+                  {'stock': 'QKC', 'count': 0.2}]
+    # print(type(stock_list[0]['count']))
     try:
-        now = datetime.datetime.now()
-        start_time = get_start_time("KRW-EOS")
-        end_time = start_time + datetime.timedelta(days=1)
+        for stocks in stock_list:
+            now = datetime.datetime.now()
+            start_time = get_start_time("KRW-{}".format(stocks['stock']))
+            end_time = start_time + datetime.timedelta(days=1)
+            if start_time < now < end_time - datetime.timedelta(seconds=10):
 
-        if start_time < now < end_time - datetime.timedelta(seconds=10):
-            target_price = get_target_price("KRW-EOS", 0.5)
-            ma15 = get_ma15("KRW-EOS")
-            current_price = get_current_price("KRW-EOS")
-            if target_price < current_price and ma15 < current_price:
-                krw = get_balance("KRW")
-                if krw > 5000:
-                    upbit.buy_market_order("KRW-EOS", krw*0.9995)
-        else:
-            btc = get_balance("EOS")
-            if btc > 0.00008:
-                upbit.sell_market_order("KRW-EOS", btc*0.9995)
-        time.sleep(1)
+                target_price = get_target_price(
+                    "KRW-{}".format(stocks['stock']), stocks['count'])
+
+                ma15 = get_ma15("KRW-{}".format(stocks['stock']))
+
+                current_price = get_current_price(
+                    "KRW-{}".format(stocks['stock']))
+
+                if target_price < current_price and ma15 < current_price:
+                    krw = get_balance("KRW")
+                    if krw > 5000:
+                        upbit.buy_market_order(
+                            "KRW-{}".format(stocks['stock']), krw*0.9995)
+            else:
+                btc = get_balance("{}".format(stocks['stock']))
+                if btc > 0.00008:
+                    upbit.sell_market_order(
+                        "KRW-{}".format(stocks['stock']), btc*0.9995)
+            print(stock_list)
+            print(start_time)
+            print(end_time)
+            print(target_price)
+            print(ma15)
+            print(current_price)
+            print(krw)
+            print(btc)
+            time.sleep(1)
+
     except Exception as e:
         print(e)
         time.sleep(1)

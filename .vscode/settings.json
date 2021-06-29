@@ -2,6 +2,6 @@
   "python.dataScience.jupyterServerURI": "local",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
-  "python.pythonPath": "C:\\Users\\MCF\\anaconda3\\envs\\bitcoinVenv\\python.exe",
+  "python.pythonPath": "C:\\Users\\MCF\\anaconda3\\envs\\lotto_deep\\python.exe",
   "jupyter.jupyterServerType": "local"
 }
